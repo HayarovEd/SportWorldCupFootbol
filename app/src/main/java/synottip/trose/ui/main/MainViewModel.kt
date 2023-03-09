@@ -1,4 +1,4 @@
-package com.example.sportworldcupfootbol.ui.main
+package synottip.trose.ui.main
 
 import androidx.lifecycle.ViewModel
 

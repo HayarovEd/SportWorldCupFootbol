@@ -1,6 +1,7 @@
-package com.example.sportworldcupfootbol.data
+package synottip.trose.data
 
-import com.example.sportworldcupfootbol.R
+import synottip.trose.R
+
 
 val worldCups = listOf(
     ItemWorldCup(

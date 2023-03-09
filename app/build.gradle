@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.sportworldcupfootbol'
+    namespace 'synottip.trose'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.sportworldcupfootbol"
+        applicationId "synottip.trose"
         minSdk 21
         targetSdk 33
         versionCode 1

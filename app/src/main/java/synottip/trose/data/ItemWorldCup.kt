@@ -1,4 +1,4 @@
-package com.example.sportworldcupfootbol.data
+package synottip.trose.data
 
 data class ItemWorldCup(
     val year: Int,

@@ -1,11 +1,11 @@
-package com.example.sportworldcupfootbol.ui.detail
+package synottip.trose.ui.detail
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.sportworldcupfootbol.data.DetailsWorldCup
-import com.example.sportworldcupfootbol.data.details
+import synottip.trose.data.DetailsWorldCup
+import synottip.trose.data.details
 import kotlinx.coroutines.launch
 
 class DetailFragmentViewModel(

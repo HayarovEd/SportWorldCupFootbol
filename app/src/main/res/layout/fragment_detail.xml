@@ -1,14 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.detail.DetailFragment">
+    android:background="@drawable/game_shape"
+    tools:context="synottip.trose.ui.detail.DetailFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/mascot"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/ic_1930"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fifa" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/fifa"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:text="FIFA World Cup 1930"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/hostCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Host Country:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/mascot"
+        app:layout_constraintTop_toTopOf="@id/mascot" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/hostCountryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Russia"
+        app:layout_constraintStart_toEndOf="@id/hostCountry"
+        app:layout_constraintTop_toTopOf="@id/mascot"  />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/begin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="3dp"
+        android:text="Start of the championship: "
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/mascot"
+        app:layout_constraintTop_toBottomOf="@id/hostCountry" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/beginDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="3dp"
+        android:text="01.01.2020"
+        app:layout_constraintStart_toEndOf="@id/begin"
+        app:layout_constraintTop_toBottomOf="@id/hostCountry" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="3dp"
+        android:text="End of the championship:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/mascot"
+        app:layout_constraintTop_toBottomOf="@id/begin" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/endDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="3dp"
+        android:text="01.01.2020"
+        app:layout_constraintStart_toEndOf="@id/end"
+        app:layout_constraintTop_toBottomOf="@id/begin" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/winnerCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="3dp"
+        android:text="Winner:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/mascot"
+        app:layout_constraintTop_toBottomOf="@id/end" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/winnerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="3dp"
+        android:text="Russia"
+        app:layout_constraintStart_toEndOf="@id/winnerCountry"
+        app:layout_constraintTop_toBottomOf="@id/end" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/flag"
+        android:layout_width="25dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="4dp"
+        android:src="@drawable/russia"
+        app:layout_constraintStart_toEndOf="@id/winnerName"
+        app:layout_constraintTop_toTopOf="@id/winnerName"
+        app:layout_constraintBottom_toBottomOf="@id/winnerName"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/allCountries"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="3dp"
+        android:text="Participating countries:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/mascot"
+        app:layout_constraintTop_toBottomOf="@id/winnerCountry" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/allCountriesCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="3dp"
+        android:text="0"
+        app:layout_constraintStart_toEndOf="@id/allCountries"
+        app:layout_constraintTop_toBottomOf="@id/winnerCountry" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/finalStage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="3dp"
+        android:text="Final Stage:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/mascot"
+        app:layout_constraintTop_toBottomOf="@id/allCountries" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/finalStageCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="3dp"
+        android:text="0"
+        app:layout_constraintStart_toEndOf="@id/finalStage"
+        app:layout_constraintTop_toBottomOf="@id/allCountries" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

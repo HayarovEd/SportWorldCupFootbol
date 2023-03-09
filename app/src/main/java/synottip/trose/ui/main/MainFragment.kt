@@ -1,23 +1,22 @@
-package com.example.sportworldcupfootbol.ui.detail
+package synottip.trose.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.sportworldcupfootbol.R
+import androidx.fragment.app.viewModels
+import synottip.trose.R
 
-class DetailFragment : Fragment() {
+class MainFragment : Fragment() {
 
-
+    private val viewModel by viewModels<MainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+    ): View {
+        return inflater.inflate(R.layout.fragment_main, container, false)
     }
-
 
 }
