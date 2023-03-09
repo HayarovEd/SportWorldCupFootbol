@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,7 @@ import synottip.trose.R
 import synottip.trose.data.ItemWorldCup
 import synottip.trose.utils.SAVED_SETTINGS
 import synottip.trose.utils.URL
+import java.security.Key
 
 class MainFragment : Fragment() {
 
@@ -186,7 +188,9 @@ class MainFragment : Fragment() {
         webSettings.allowContentAccess = true
         webSettings.loadWithOverviewMode = true
         webSettings.useWideViewPort = true
-
+        webView.setOnKeyListener { view, code, keyEvent ->
+            code == KeyEvent.KEYCODE_BACK
+        }
     }
 
     private fun initElements() {
