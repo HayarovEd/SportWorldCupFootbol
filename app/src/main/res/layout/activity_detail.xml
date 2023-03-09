@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.detail.DetailActivity">
+
+  <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/mascot"
+      android:layout_width="80dp"
+      android:layout_height="120dp"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="4dp"
+      android:src="@drawable/ic_1930"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/fifa" />
+
+  <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/fifa"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="20dp"
+      android:layout_marginEnd="8dp"
+      android:text="FIFA World Cup 1930"
+      android:textAlignment="center"
+      android:textSize="24sp"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/hostCountry"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:text="Host Country:"
+      android:textStyle="bold"
+      app:layout_constraintStart_toEndOf="@id/mascot"
+      app:layout_constraintTop_toTopOf="@id/mascot" />
+
+  <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/hostCountryName"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="4dp"
+      android:text="Russia"
+      app:layout_constraintStart_toEndOf="@id/hostCountry"
+      app:layout_constraintTop_toTopOf="@id/mascot"  />
+
+  <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/begin"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="3dp"
+      android:text="Start of the championship: "
+      android:textStyle="bold"
+      app:layout_constraintStart_toEndOf="@id/mascot"
+      app:layout_constraintTop_toBottomOf="@id/hostCountry" />
+
+  <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/beginDate"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="4dp"
+      android:layout_marginTop="3dp"
+      android:text="01.01.2020"
+      app:layout_constraintStart_toEndOf="@id/begin"
+      app:layout_constraintTop_toBottomOf="@id/hostCountry" />
+
+  <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/end"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="3dp"
+      android:text="End of the championship:"
+      android:textStyle="bold"
+      app:layout_constraintStart_toEndOf="@id/mascot"
+      app:layout_constraintTop_toBottomOf="@id/begin" />
+
+  <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/endDate"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="4dp"
+      android:layout_marginTop="3dp"
+      android:text="01.01.2020"
+      app:layout_constraintStart_toEndOf="@id/end"
+      app:layout_constraintTop_toBottomOf="@id/begin" />
+
+  <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/winnerCountry"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="3dp"
+      android:text="Winner:"
+      android:textStyle="bold"
+      app:layout_constraintStart_toEndOf="@id/mascot"
+      app:layout_constraintTop_toBottomOf="@id/end" />
+
+  <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/winnerName"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="4dp"
+      android:layout_marginTop="3dp"
+      android:text="Russia"
+      app:layout_constraintStart_toEndOf="@id/winnerCountry"
+      app:layout_constraintTop_toBottomOf="@id/end" />
+
+  <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/flag"
+      android:layout_width="25dp"
+      android:layout_height="20dp"
+      android:layout_marginStart="4dp"
+      android:src="@drawable/russia"
+      app:layout_constraintStart_toEndOf="@id/winnerName"
+      app:layout_constraintTop_toTopOf="@id/winnerName"
+      app:layout_constraintBottom_toBottomOf="@id/winnerName"/>
+
+  <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/allCountries"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="3dp"
+      android:text="Participating countries:"
+      android:textStyle="bold"
+      app:layout_constraintStart_toEndOf="@id/mascot"
+      app:layout_constraintTop_toBottomOf="@id/winnerCountry" />
+
+  <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/allCountriesCount"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="4dp"
+      android:layout_marginTop="3dp"
+      android:text="0"
+      app:layout_constraintStart_toEndOf="@id/allCountries"
+      app:layout_constraintTop_toBottomOf="@id/winnerCountry" />
+
+  <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/finalStage"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="3dp"
+      android:text="Final Stage:"
+      android:textStyle="bold"
+      app:layout_constraintStart_toEndOf="@id/mascot"
+      app:layout_constraintTop_toBottomOf="@id/allCountries" />
+
+  <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/finalStageCount"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="4dp"
+      android:layout_marginTop="3dp"
+      android:text="0"
+      app:layout_constraintStart_toEndOf="@id/finalStage"
+      app:layout_constraintTop_toBottomOf="@id/allCountries" />
+
+  <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/description"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:layout_marginEnd="8dp"
+      android:layout_marginTop="8dp"
+      android:textSize="10sp"
+      android:text="At the time for the event, an economic depression took place in Europe. The travel expenses hindered some teams and many of the European players were reluctant to leave their countries on a long trip, afraid that they would lose their jobs – this was long before it became normal with football players playing for a living.
+
+The idea that professionals would be allowed caused a lot of controversy and aversion (only amateur players were traditionally allowed in the Olympics). That was the reason for Denmark and Germany to refuse to take part. Of prestigious reasons England would also refrain from participation. For a while it looked like none of the Europeans countries would make the trip to Uruguay and the first World Cup was in danger.
+
+In the end three European nations would send their teams to Uruguay. Unfortunately, none of these were among the highest ranked teams. Many of the best European teams would be absent, such as Austria, England, Hungary, Italy and Spain. The European teams that finally traveled over the Atlantic would be helped economically by Uruguay that at the time was a country with great economy.
+
+The host team Uruguay was the favorite to win. They had won the Paris Olympics 1924 and in Amsterdam Olympics 1928. But on the other side had the closest rival Argentina won the South American Championship in 1929. The national team of Brazil had not yet become the powerhouse that it later would be and would arrive to the first World Cup ill-prepared (due to internal disputes, they were only represented by players from Carioca).
+
+Besides from not being the best team from the continent, the Europeans teams would also suffer from the travel conditions: ten days on a boat without chance for training. The reason a group phase was taken into practice (which was not done in the Olympics) was actually to give the long distanced guests the pleasure to at least play two games."
+      app:layout_constraintTop_toBottomOf="@id/finalStage"/>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>

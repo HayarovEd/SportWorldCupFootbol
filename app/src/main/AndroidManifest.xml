@@ -14,7 +14,13 @@
         android:theme="@style/Theme.SportWorldCupFootbol"
         tools:targetApi="31">
         <activity
-            android:name="synottip.trose.MainActivity"
+            android:name=".ui.main.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.detail.DetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

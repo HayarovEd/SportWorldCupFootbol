@@ -2,34 +2,33 @@ package synottip.trose.ui.main
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.webkit.CookieManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import synottip.trose.R
 import synottip.trose.data.ItemWorldCup
+import synottip.trose.databinding.ActivityMainBinding
+import synottip.trose.ui.detail.DetailActivity
 import synottip.trose.utils.SAVED_SETTINGS
 import synottip.trose.utils.URL
-import java.security.Key
 
-class MainFragment : Fragment() {
+class MainActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<MainViewModel>()
     private lateinit var webView: WebView
@@ -39,38 +38,21 @@ class MainFragment : Fragment() {
     private lateinit var progress: ProgressBar
     private lateinit var currentState: MainFragmentState
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        supportActionBar?.hide()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         initElements()
         val sharedPref =
-            requireActivity().getSharedPreferences(SAVED_SETTINGS, Context.MODE_PRIVATE)
+            this.getSharedPreferences(SAVED_SETTINGS, Context.MODE_PRIVATE)
         val sharedUrl = sharedPref.getString(URL, "")
         currentState = MainFragmentState.Loading
         viewModel.getFromLocal(
             pathUrl = sharedUrl ?: "",
             checkedInternetConnection = checkedInternetConnection()
         )
-        if (webView.canGoBack()) {
-            webView.goBack()
-        } else {
-            when (currentState) {
-                is MainFragmentState.SuccessConnect -> {
-                    requireActivity().onBackPressedDispatcher.onBackPressed()
-                }
-                else -> {
-
-                }
-            }
-
-        }
-        viewModel.showData.observe(viewLifecycleOwner) { state ->
+        viewModel.showData.observe(this) { state ->
             when (state) {
                 is MainFragmentState.SuccessConnect -> {
                     val editor = sharedPref.edit()
@@ -121,7 +103,7 @@ class MainFragment : Fragment() {
     private fun checkedInternetConnection() : Boolean {
         var result = false
         val connectivityManager =
-            requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val networkCapabilities = connectivityManager.activeNetwork ?: return false
             val actNw =
@@ -150,13 +132,15 @@ class MainFragment : Fragment() {
     }
 
     private fun setRecycledView(items: List<ItemWorldCup>) {
-        recycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager
+        recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager
             .VERTICAL, false)
         val stateClickListener: CupAdapter.OnStateClickListener =
             object : CupAdapter.OnStateClickListener {
                 override fun onStateClick(item: ItemWorldCup, position: Int) {
-                    val bundle = bundleOf("year" to item.year)
-                    view?.findNavController()?.navigate(R.id.action_mainFragment_to_detailFragment, bundle)
+                    val intent = Intent(this@MainActivity, DetailActivity::class.java)
+                    intent.putExtra("year", item.year)
+
+                    startActivity(intent)
                 }
             }
         recycler.adapter = CupAdapter(items, stateClickListener)
@@ -164,7 +148,7 @@ class MainFragment : Fragment() {
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun initWebView(savedInstanceState: Bundle?, url:String) {
-        webView = requireActivity().findViewById(R.id.webView)
+        webView = findViewById(R.id.webView)
         webView.webViewClient = WebViewClient()
         val webSettings = webView.settings
         webSettings.javaScriptEnabled = true
@@ -188,22 +172,35 @@ class MainFragment : Fragment() {
         webSettings.allowContentAccess = true
         webSettings.loadWithOverviewMode = true
         webSettings.useWideViewPort = true
-        /*webView.setOnKeyListener { view, code, keyEvent ->
-            code == KeyEvent.KEYCODE_BACK
-        }*/
     }
 
     private fun initElements() {
-        errorTextView = requireActivity().findViewById(R.id.errorTv)
-        webView = requireActivity().findViewById(R.id.webView)
-        recycler = requireActivity().findViewById(R.id.historyRv)
-        card = requireActivity().findViewById(R.id.offline)
-        progress = requireActivity().findViewById(R.id.progress)
+        errorTextView = findViewById(R.id.errorTv)
+        webView = findViewById(R.id.webView)
+        recycler = findViewById(R.id.historyRv)
+        card = findViewById(R.id.offline)
+        progress = findViewById(R.id.progress)
     }
 
 
     override fun onSaveInstanceState(outState: Bundle) {
         webView.saveState(outState)
         super.onSaveInstanceState(outState)
+    }
+
+    override fun onBackPressed() {
+        if (webView.canGoBack()) {
+            webView.goBack()
+        } else {
+            when (currentState) {
+                is MainFragmentState.SuccessConnect -> {
+
+                }
+                else -> {
+                    super.onBackPressed()
+                }
+            }
+
+        }
     }
 }
