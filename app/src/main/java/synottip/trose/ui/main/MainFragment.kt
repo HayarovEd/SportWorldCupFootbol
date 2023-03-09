@@ -15,9 +15,11 @@ import android.webkit.WebViewClient
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import synottip.trose.R
@@ -38,7 +40,7 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
@@ -151,8 +153,8 @@ class MainFragment : Fragment() {
         val stateClickListener: CupAdapter.OnStateClickListener =
             object : CupAdapter.OnStateClickListener {
                 override fun onStateClick(item: ItemWorldCup, position: Int) {
-
-
+                    val bundle = bundleOf("year" to item.year)
+                    view?.findNavController()?.navigate(R.id.action_mainFragment_to_detailFragment, bundle)
                 }
             }
         recycler.adapter = CupAdapter(items, stateClickListener)

@@ -14,9 +14,10 @@ import java.util.*
 class MainViewModel : ViewModel() {
     private val _showData = MutableLiveData<MainFragmentState>(MainFragmentState.Loading)
     val showData = _showData
-    private val remoteConfig = Firebase.remoteConfig
+    //private val remoteConfig = Firebase.remoteConfig
     fun getFromLocal(pathUrl: String = "", checkedInternetConnection: Boolean) {
-        if (pathUrl != "") {
+        _showData.value = MainFragmentState.Offline(data = worldCups)
+        /*if (pathUrl != "") {
             if (checkedInternetConnection) {
                 _showData.value =
                     MainFragmentState.SuccessConnect(remoteData = RemoteData(pathUrl))
@@ -46,7 +47,7 @@ class MainViewModel : ViewModel() {
                     _showData.value =
                         MainFragmentState.Error(message = it.message ?: "Unknown error")
                 }
-        }
+        }*/
     }
 
     private fun checkIsEmu(): Boolean {

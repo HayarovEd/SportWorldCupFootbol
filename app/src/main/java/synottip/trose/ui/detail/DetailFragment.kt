@@ -26,6 +26,7 @@ class DetailFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel.data.observe(viewLifecycleOwner) {item->
             binding.fifa.text = "FIFA World Cup ${item.year}"
             binding.hostCountryName.text = item.country
