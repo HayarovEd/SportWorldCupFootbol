@@ -10,19 +10,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.CookieManager
+import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import synottip.trose.R
+import synottip.trose.data.ItemWorldCup
 import synottip.trose.utils.SAVED_SETTINGS
 import synottip.trose.utils.URL
 
 class MainFragment : Fragment() {
 
     private val viewModel by viewModels<MainViewModel>()
+    private lateinit var webView: WebView
+    private lateinit var errorTextView: TextView
+    private lateinit var recycler: RecyclerView
+    private lateinit var card: CardView
+    private lateinit var progress: ProgressBar
+    private lateinit var currentState: MainFragmentState
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,13 +44,28 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initElements()
         val sharedPref =
             requireActivity().getSharedPreferences(SAVED_SETTINGS, Context.MODE_PRIVATE)
         val sharedUrl = sharedPref.getString(URL, "")
+        currentState = MainFragmentState.Loading
         viewModel.getFromLocal(
             pathUrl = sharedUrl ?: "",
             checkedInternetConnection = checkedInternetConnection()
         )
+        if (webView.canGoBack()) {
+            webView.goBack()
+        } else {
+            when (currentState) {
+                is MainFragmentState.SuccessConnect -> {
+                    requireActivity().onBackPressedDispatcher.onBackPressed()
+                }
+                else -> {
+
+                }
+            }
+
+        }
         viewModel.showData.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is MainFragmentState.SuccessConnect -> {
@@ -48,68 +74,41 @@ class MainFragment : Fragment() {
                     editor.apply()
                     webView.isVisible = true
                     errorTextView.isVisible = false
-                    recycler.isVisible = false
-                    fab.isVisible = false
-                    chronometer.isVisible = false
-                    startButton.isVisible = false
-                    stopButton.isVisible = false
-                    resetButton.isVisible = false
+                    card.isVisible = false
                     progress.isVisible = false
                     currentState = state
                     initWebView(savedInstanceState, state.remoteData.urlPath)
                 }
                 is MainFragmentState.NoInternet -> {
                     webView.isVisible = false
-                    recycler.isVisible = false
+                    card.isVisible = false
                     errorTextView.isVisible = true
-                    fab.isVisible = false
-                    chronometer.isVisible = false
-                    startButton.isVisible = false
-                    stopButton.isVisible = false
-                    resetButton.isVisible = false
                     progress.isVisible = false
                     currentState = state
                     errorTextView.text = state.message
                 }
                 is MainFragmentState.Loading -> {
                     webView.isVisible = false
-                    recycler.isVisible = false
-                    errorTextView.isVisible = true
-                    fab.isVisible = false
-                    chronometer.isVisible = false
-                    fab.isVisible = false
-                    startButton.isVisible = false
-                    stopButton.isVisible = false
-                    resetButton.isVisible = false
+                    card.isVisible = false
                     progress.isVisible = true
+                    errorTextView.isVisible = false
                     currentState = state
                 }
                 is MainFragmentState.Error -> {
                     webView.isVisible = false
-                    recycler.isVisible = false
+                    card.isVisible = false
                     errorTextView.isVisible = true
                     errorTextView.text = state.message
-                    fab.isVisible = false
-                    chronometer.isVisible = false
-                    fab.isVisible = false
-                    startButton.isVisible = false
-                    stopButton.isVisible = false
-                    resetButton.isVisible = false
                     progress.isVisible = false
                     currentState = state
                 }
                 is MainFragmentState.Offline -> {
-                    recycler.isVisible = true
                     webView.isVisible = false
                     errorTextView.isVisible = false
-                    fab.isVisible = true
-                    chronometer.isVisible = true
-                    startButton.isVisible = true
-                    stopButton.isVisible = true
-                    resetButton.isVisible = true
+                    card.isVisible = true
                     progress.isVisible = false
                     currentState = state
-                    setRecycledView(state.notes)
+                    setRecycledView(state.data)
                 }
             }
         }
@@ -146,17 +145,22 @@ class MainFragment : Fragment() {
         return result
     }
 
-    private fun setRecycledView(notes: List<Note>) {
-        recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager
+    private fun setRecycledView(items: List<ItemWorldCup>) {
+        recycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager
             .VERTICAL, false)
-        val adapter = NoteAdapter()
-        adapter.submitList(notes)
-        recycler.adapter = adapter
+        val stateClickListener: CupAdapter.OnStateClickListener =
+            object : CupAdapter.OnStateClickListener {
+                override fun onStateClick(item: ItemWorldCup, position: Int) {
+
+
+                }
+            }
+        recycler.adapter = CupAdapter(items, stateClickListener)
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun initWebView(savedInstanceState: Bundle?, url:String) {
-        webView = findViewById(R.id.webView)
+        webView = requireActivity().findViewById(R.id.webView)
         webView.webViewClient = WebViewClient()
         val webSettings = webView.settings
         webSettings.javaScriptEnabled = true
@@ -184,33 +188,14 @@ class MainFragment : Fragment() {
     }
 
     private fun initElements() {
-        supportActionBar?.hide()
-        errorTextView = findViewById(R.id.errorTv)
-        webView = findViewById(R.id.webView)
-        recycler = findViewById(R.id.noteRv)
-        fab = findViewById(R.id.fab)
-        chronometer = findViewById(R.id.chronometer)
-        startButton = findViewById(R.id.start_bt)
-        stopButton = findViewById(R.id.stop_bt)
-        resetButton = findViewById(R.id.reset_bt)
-        progress = findViewById(R.id.progress)
+        errorTextView = requireActivity().findViewById(R.id.errorTv)
+        webView = requireActivity().findViewById(R.id.webView)
+        recycler = requireActivity().findViewById(R.id.historyRv)
+        card = requireActivity().findViewById(R.id.offline)
+        progress = requireActivity().findViewById(R.id.progress)
     }
 
-    override fun onBackPressed() {
-        if (webView.canGoBack()) {
-            webView.goBack()
-        } else {
-            when (currentState) {
-                is MaintActivityState.SuccessConnect -> {
 
-                }
-                else -> {
-                    super.onBackPressed()
-                }
-            }
-
-        }
-    }
     override fun onSaveInstanceState(outState: Bundle) {
         webView.saveState(outState)
         super.onSaveInstanceState(outState)
