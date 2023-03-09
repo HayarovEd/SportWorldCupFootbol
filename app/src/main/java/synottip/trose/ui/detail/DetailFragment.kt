@@ -35,6 +35,7 @@ class DetailFragment : Fragment() {
             binding.winnerName.text = item.winnerCountry
             binding.allCountriesCount.text = item.participatingCountries.toString()
             binding.finalStageCount.text = item.finalStageCountry.toString()
+            binding.description.text = item.description
             binding.mascot.setImageResource(item.mascot)
             binding.flag.setImageResource(item.flagWinner)
         }
