@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "182459813103",
+    "project_id": "syntip-c8b73",
+    "storage_bucket": "syntip-c8b73.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182459813103:android:c3ab8fbd133495b66ddf1a",
+        "android_client_info": {
+          "package_name": "synottip.trose"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "182459813103-4ch4lcgir2o6dgtvcdhp9qpb5t7721bg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf7dGPgI14DNgCWH_k-zZJLU-a6eeJ8uQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "182459813103-4ch4lcgir2o6dgtvcdhp9qpb5t7721bg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
